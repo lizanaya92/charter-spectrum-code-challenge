@@ -14,9 +14,9 @@
     "babel-loader": "^6.3.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.23.0",
-    "webpack": "^2.2.1",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.2",
-    "dotenv": "^8.2.0"
+    "webpack": "^2.2.1"
   },
   "dependencies": {
     "express": "^4.15.0",
