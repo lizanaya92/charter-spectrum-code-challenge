@@ -7,13 +7,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       restaurants: [],
-      noRestaurantsFound: false
+      noRestaurantsFound: false, 
+      currentPage: 1, 
+      restaurantsPerPage: 10
     };
 
     this.diplayAllRestaurants = this.diplayAllRestaurants.bind(this);
     this.sortRestaurants = this.sortRestaurants.bind(this);
     this.diplayFilteredRestaurants = this.diplayFilteredRestaurants.bind(this);
     this.handleNoRestaurantsFound = this.handleNoRestaurantsFound.bind(this);
+    this.pageNumberClick = this.pageNumberClick.bind(this); 
   }
 
   componentDidMount() {
@@ -60,6 +63,12 @@ class App extends React.Component {
     });
   }
 
+  pageNumberClick (event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
+
   render() {
     return (
       <div>
@@ -71,7 +80,10 @@ class App extends React.Component {
         />
         <RestaurantList
           restaurants={this.state.restaurants}
+          currentPage = {this.state.currentPage}
+          restaurantsPerPage = {this.state.restaurantsPerPage}
           noRestaurantsFound={this.state.noRestaurantsFound}
+          pageNumberClick={this.pageNumberClick}
         />
       </div>
     );

@@ -5,7 +5,30 @@ const RestaurantList = props => {
   if (props.noRestaurantsFound === true) {
     return <h3>Sorry! No restaurants were found with the applied filters.</h3>;
   }
-  const RestaurantComponent = props.restaurants.map(restaurant => (
+
+  const indexOfLastRestaurant = props.currentPage * props.restaurantsPerPage;
+  const indexOfFirstRestaurant = indexOfLastRestaurant - props.restaurantsPerPage;
+  const currentRestaurantsOnDisplay = props.restaurants.slice(indexOfFirstRestaurant, indexOfLastRestaurant); 
+
+  const pageNumbers = []; 
+  for (let i = 1; i <= Math.ceil(props.restaurants.length / props.restaurantsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  const renderPageNumbers = pageNumbers.map(number => {
+    return (
+      <button
+        key={number}
+        id={number}
+        onClick={props.pageNumberClick}
+      >
+        {number}
+      </button>
+    );
+  });
+
+
+  const RestaurantComponent = currentRestaurantsOnDisplay.map(restaurant => (
     <Restaurant
       key={restaurant.id}
       name={restaurant.name}
@@ -16,7 +39,14 @@ const RestaurantList = props => {
     />
   ));
 
-  return <ul>{RestaurantComponent}</ul>;
+  return (
+    <div>
+      <ul>{RestaurantComponent}</ul>
+      <ul id="page-numbers">
+        {renderPageNumbers}
+      </ul>
+    </div>
+  );
 };
 
 export default RestaurantList;
