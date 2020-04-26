@@ -42,7 +42,7 @@ class SearchField extends React.Component {
     } else {
       this.setState({
         input: event.target.value
-      }); 
+      }, this.props.searchFieldInputUpdate(event.target.value)); 
     }
   }
 

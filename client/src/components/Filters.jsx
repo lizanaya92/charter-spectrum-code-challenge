@@ -1,6 +1,7 @@
 import React from 'react';
 import StateFilter from './StateFilter.jsx';
 import GenreFilter from './GenreFilter.jsx';
+import SearchField from './SearchField.jsx';
 
 class Filters extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class Filters extends React.Component {
     this.state = {
       location: '',
       genre: '',
-      attire: '',
+      searchFieldInput: '',
     };
 
     this.selectedState = this.selectedState.bind(this);
@@ -17,6 +18,8 @@ class Filters extends React.Component {
     this.selectedGenre = this.selectedGenre.bind(this);
     this.checkRestaurantGenre = this.checkRestaurantGenre.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
+    this.searchFieldInputUpdate = this.searchFieldInputUpdate.bind(this); 
+    this.filterByInput = this.filterByInput.bind(this); 
   }
 
   onApplyFilters(event) {
@@ -25,34 +28,87 @@ class Filters extends React.Component {
     let arrayFilteredByState,
       arrayFilteredByGenre,
       arrayFilteredRestaurants;
-    const copyOfRestaurantData = [...this.props.restaurantData];
 
-    if (this.state.location !== '' && this.state.genre !== '') {
-      arrayFilteredByState = this.filterDataByState(this.state.location);
-      arrayFilteredByGenre = this.checkRestaurantGenre(
-        arrayFilteredByState,
-        this.state.genre
-      );
-      arrayFilteredRestaurants = arrayFilteredByState.concat(
-        arrayFilteredByGenre
-      );
-    }
+    if (this.state.searchFieldInput !== '') {
+      arrayFilteredRestaurants = this.ifSearchFieldPresent(this.state.searchFieldInput);
+    } else {
 
-    if (this.state.location === '' && this.state.genre !== '') {
-      arrayFilteredRestaurants = this.checkRestaurantGenre(
-        copyOfRestaurantData,
-        this.state.genre
-      );
-    }
+      if (this.state.location !== '' && this.state.genre !== '') {
+        arrayFilteredByState = this.filterDataByState(this.state.location);
+        arrayFilteredByGenre = this.checkRestaurantGenre(
+          arrayFilteredByState,
+          this.state.genre
+        );
+        arrayFilteredRestaurants = arrayFilteredByState.concat(
+          arrayFilteredByGenre
+        );
+      }
 
-    if (this.state.location !== '' && this.state.genre === '') {
-      arrayFilteredRestaurants = this.filterDataByState(this.state.location);
+      if (this.state.location === '' && this.state.genre !== '') {
+        arrayFilteredRestaurants = this.checkRestaurantGenre(
+          copyOfRestaurantData,
+          this.state.genre
+        );
+      }
+
+      if (this.state.location !== '' && this.state.genre === '') {
+        arrayFilteredRestaurants = this.filterDataByState(this.state.location);
+      }
     }
 
     if (arrayFilteredRestaurants.length > 0) {
       this.props.diplayFilteredRestaurants(arrayFilteredRestaurants);
     } else {
       this.props.handleNoRestaurantsFound();
+    }
+  }
+
+  filterByInput(input, array) {
+    let resultsArray = []; 
+    let trimInput = input.trim(); 
+    let searchInput = trimInput.toUpperCase();
+
+
+    for (let i = 0; i < array.length; i++) {
+      let restaurantName = array[i].name.toUpperCase(); 
+      let restaurantCity = array[i].city.toUpperCase(); 
+      let restaurantGenre = array[i].genre.toUpperCase(); 
+
+      if (restaurantName.includes(searchInput) || restaurantCity.includes(searchInput) || restaurantGenre.includes(searchInput)) {
+        resultsArray.push(array[i]);
+      }
+    }
+
+    return resultsArray; 
+  }
+
+  ifSearchFieldPresent(input) {
+
+
+    if (this.state.location !== '' && this.state.genre !== '') {
+      let arrayFilteredByState = this.filterDataByState(this.state.location);
+      let arrayFilteredByGenre = this.checkRestaurantGenre(
+        arrayFilteredByState,
+        this.state.genre
+      );
+      let arrayFilteredRestaurantsByGenreAndState = arrayFilteredByState.concat(
+        arrayFilteredByGenre
+      );
+
+      return this.filterByInput(input, arrayFilteredRestaurantsByGenreAndState);
+    }
+
+    if (this.state.location !== '' && this.state.genre === '') {
+      let arrayFilteredByState = this.filterDataByState(this.state.location);
+      return this.filterByInput(input, arrayFilteredByState);
+    }
+
+    if (this.state.location === '' && this.state.genre !== '') {
+      let arrayFilteredRestaurantsByGenre = this.checkRestaurantGenre(
+        this.props.restaurantData,
+        this.state.genre
+      );
+      return this.filterByInput(input, arrayFilteredRestaurantsByGenre);
     }
   }
 
@@ -66,6 +122,12 @@ class Filters extends React.Component {
     }
 
     return restaurantIncludesGenre;
+  }
+
+  searchFieldInputUpdate (input) {
+    this.setState({
+      searchFieldInput: input
+    });
   }
 
   filterDataByState(st) {
@@ -93,6 +155,12 @@ class Filters extends React.Component {
   render() {
     return (
       <div>
+        <SearchField 
+          restaurantData={this.props.restaurantData}
+          diplayFilteredRestaurants={this.props.diplayFilteredRestaurants}
+          handleNoRestaurantsFound={this.props.handleNoRestaurantsFound}
+          searchFieldInputUpdate={this.searchFieldInputUpdate}
+        />
         <StateFilter selectedState={this.selectedState} />
         <GenreFilter
           restaurantData={this.props.restaurantData}

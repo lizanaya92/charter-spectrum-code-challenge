@@ -1,7 +1,6 @@
 import React from 'react';
 import RestaurantList from './RestaurantList.jsx';
-import Filters from './Filters.jsx';
-import SearchField from './SearchField.jsx'; 
+import Filters from './Filters.jsx'; 
 
 class App extends React.Component {
   constructor(props) {
@@ -66,11 +65,6 @@ class App extends React.Component {
       <div>
         <h1>FindEatz</h1>
         <Filters
-          restaurantData={this.state.restaurants}
-          diplayFilteredRestaurants={this.diplayFilteredRestaurants}
-          handleNoRestaurantsFound={this.handleNoRestaurantsFound}
-        />
-        <SearchField 
           restaurantData={this.state.restaurants}
           diplayFilteredRestaurants={this.diplayFilteredRestaurants}
           handleNoRestaurantsFound={this.handleNoRestaurantsFound}
