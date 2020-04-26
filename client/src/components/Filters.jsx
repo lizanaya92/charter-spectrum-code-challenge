@@ -1,5 +1,6 @@
 import React from 'react';
 import StateFilter from './StateFilter.jsx';
+import GenreFilter from './GenreFilter.jsx';
 
 class Filters extends React.Component {
   constructor(props) {
@@ -13,26 +14,62 @@ class Filters extends React.Component {
     this.selectedState = this.selectedState.bind(this);
     this.onApplyFilters = this.onApplyFilters.bind(this);
     this.filterDataByState = this.filterDataByState.bind(this);
+    this.selectedGenre = this.selectedGenre.bind(this);
+    this.checkRestaurantGenre = this.checkRestaurantGenre.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
   }
 
   onApplyFilters(event) {
-    console.log('EVENT', event);
-    console.log('Here is the State', this.state);
     event.preventDefault();
-    if (this.state.location !== '') {
-      const arrayFilteredRestaurants = this.filterDataByState(
-        this.state.location
+
+    let arrayFilteredByState;
+    let arrayFilteredByGenre;
+    let arrayFilteredRestaurants;
+    const copyOfRestaurantData = [...this.props.restaurantData];
+
+    if (this.state.location !== '' && this.state.genre !== '') {
+      arrayFilteredByState = this.filterDataByState(this.state.location);
+      arrayFilteredByGenre = this.checkRestaurantGenre(
+        arrayFilteredByState,
+        this.state.genre
       );
-      if (arrayFilteredRestaurants.length > 0) {
-        this.props.diplayFilteredRestaurants(arrayFilteredRestaurants);
-      } else {
-        this.props.handleNoRestaurantsFound();
-      }
+      arrayFilteredRestaurants = arrayFilteredByState.concat(
+        arrayFilteredByGenre
+      );
+    }
+
+    if (this.state.location === '' && this.state.genre !== '') {
+      arrayFilteredRestaurants = this.checkRestaurantGenre(
+        copyOfRestaurantData,
+        this.state.genre
+      );
+    }
+
+    if (this.state.location !== '' && this.state.genre === '') {
+      arrayFilteredRestaurants = this.filterDataByState(this.state.location);
+    }
+
+    if (arrayFilteredRestaurants.length > 0) {
+      this.props.diplayFilteredRestaurants(arrayFilteredRestaurants);
+    } else {
+      this.props.handleNoRestaurantsFound();
     }
   }
 
+  checkRestaurantGenre(array, selectedGenre) {
+    const restaurantIncludesGenre = [];
+
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].genre.includes(selectedGenre)) {
+        restaurantIncludesGenre.push(array[i]);
+      }
+    }
+
+    return restaurantIncludesGenre;
+  }
+
   filterDataByState(st) {
-    const arrayOfRestaurants = this.props.restaurantData;
+    const arrayOfRestaurants = [...this.props.restaurantData];
     return arrayOfRestaurants.filter(obj => obj.state === st);
   }
 
@@ -42,11 +79,28 @@ class Filters extends React.Component {
     });
   }
 
+  selectedGenre(selectedGenre) {
+    this.setState({
+      genre: selectedGenre,
+    });
+  }
+
+  clearFilters(event) {
+    event.preventDefault();
+    window.location.reload(true);
+  }
+
   render() {
     return (
       <div>
         <StateFilter selectedState={this.selectedState} />
+        <GenreFilter
+          restaurantData={this.props.restaurantData}
+          selectedGenre={this.selectedGenre}
+        />
+        {/* <AttireFilter /> */}
         <button onClick={this.onApplyFilters}>Apply Filters</button>
+        <button onClick={this.clearFilters}>Clear Filters</button>
       </div>
     );
   }
