@@ -4,6 +4,7 @@ const Restaurant = props => (
   <li>
     {props.name}
     {props.city}
+    {props.state}
     {props.phoneNumber}
     {props.genre}
   </li>
