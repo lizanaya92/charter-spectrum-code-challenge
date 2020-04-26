@@ -7,9 +7,10 @@ class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchFieldInput: '',
+      displayFilters: false, 
       location: '',
       genre: '',
-      searchFieldInput: '',
     };
 
     this.selectedState = this.selectedState.bind(this);
@@ -20,6 +21,7 @@ class Filters extends React.Component {
     this.clearFilters = this.clearFilters.bind(this);
     this.searchFieldInputUpdate = this.searchFieldInputUpdate.bind(this); 
     this.filterByInput = this.filterByInput.bind(this); 
+    this.filterDisplayControl = this.filterDisplayControl.bind(this); 
   }
 
   onApplyFilters(event) {
@@ -152,24 +154,59 @@ class Filters extends React.Component {
     window.location.reload(true);
   }
 
+  filterDisplayControl() {
+    event.preventDefault();
+    this.setState({
+      displayFilters: !this.state.displayFilters
+    });
+
+    if (!displayFilters) {
+      this.setState({
+        location: '',
+        genre: '',
+      });
+    }
+  }
+
   render() {
-    return (
-      <div>
-        <SearchField 
-          restaurantData={this.props.restaurantData}
-          diplayFilteredRestaurants={this.props.diplayFilteredRestaurants}
-          handleNoRestaurantsFound={this.props.handleNoRestaurantsFound}
-          searchFieldInputUpdate={this.searchFieldInputUpdate}
-        />
-        <StateFilter selectedState={this.selectedState} />
-        <GenreFilter
-          restaurantData={this.props.restaurantData}
-          selectedGenre={this.selectedGenre}
-        />
-        <button onClick={this.onApplyFilters}>Apply Filters</button>
-        <button onClick={this.clearFilters}>Clear Filters</button>
-      </div>
-    );
+
+    const displayFilters = this.state.displayFilters;
+    let filterButton; 
+    if (!displayFilters) {
+      filterButton = <button onClick={this.filterDisplayControl}>Show Filters</button>;
+    } else {
+      filterButton = <button onClick={this.filterDisplayControl}>Hide Filters</button>;
+    }
+
+    const searchField = <SearchField 
+      restaurantData={this.props.restaurantData}
+      diplayFilteredRestaurants={this.props.diplayFilteredRestaurants}
+      handleNoRestaurantsFound={this.props.handleNoRestaurantsFound}
+      searchFieldInputUpdate={this.searchFieldInputUpdate}
+    />;
+
+    if (!this.state.displayFilters) {
+      return (
+        <div>
+          {searchField}
+          {filterButton}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {searchField}
+          <StateFilter selectedState={this.selectedState} />
+          <GenreFilter
+            restaurantData={this.props.restaurantData}
+            selectedGenre={this.selectedGenre}
+          />
+          <button onClick={this.onApplyFilters}>Apply Filters</button>
+          <button onClick={this.clearFilters}>Clear Filters</button>
+          {filterButton}
+        </div>
+      );
+    }
   }
 }
 

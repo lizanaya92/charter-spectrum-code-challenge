@@ -29,7 +29,7 @@ class GenreFilter extends React.Component {
 
   onDropdownChange(event) {
     event.preventDefault();
-    console.log('here is the event', event.target.value);
+    
     this.setState(
       {
         genre: event.target.value

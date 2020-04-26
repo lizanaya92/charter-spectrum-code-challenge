@@ -70,6 +70,7 @@ class SearchField extends React.Component {
     return (
       <div className="search-form">
         <div className="search-input">
+          <h4>Search</h4>
           <input
             type="text"
             placeholder="search by name, city, or genre"
