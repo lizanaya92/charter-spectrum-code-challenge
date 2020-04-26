@@ -1,56 +1,26 @@
 import React from 'react';
 import GenreFilterOptions from './GenreFilterOptions.jsx';
 
-class GenreFilter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      genre: ''
-    };
-    this.findAllGenres = this.findAllGenres.bind(this);
-    this.onDropdownChange = this.onDropdownChange.bind(this);
-  }
+const GenreFilter = props => {
+  
 
-  findAllGenres(array) {
-    const genres = [];
-    for (let i = 0; i < array.length; i++) {
-      const genreString = array[i].genre;
-      const genreArray = genreString.split(',');
-      for (let j = 0; j < genreArray.length; j++) {
-        if (genres.indexOf(genreArray[j]) === -1) {
-          genres.push(genreArray[j]);
-        }
-      }
-    }
-    genres.sort();
-    genres.unshift('Select Genre'); 
-    return genres;
-  }
-
-  onDropdownChange(event) {
-    event.preventDefault();
+  const onDropdownChange = event => {
     
-    this.setState(
-      {
-        genre: event.target.value
-      },
-      this.props.selectedGenre(event.target.value)
-    );
-  }
+    event.preventDefault();
+    props.selectedGenre(event.target.value);
+  }; 
 
-  render() {
-    return (
-      <div>
-        <label htmlFor="filterByGenre">Genre</label>
-        <GenreFilterOptions
-          genre={this.state.genre}
-          onDropdownChange={this.onDropdownChange}
-          findAllGenres={this.findAllGenres}
-          restaurantData={this.props.restaurantData}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <label htmlFor="filterByGenre">Genre</label>
+      <GenreFilterOptions
+        genre={event.target.value}
+        onDropdownChange={onDropdownChange}
+        restaurantData={props.restaurantData}
+      />
+    </div>
+  );
+
+};
 
 export default GenreFilter;

@@ -10,7 +10,7 @@ class Filters extends React.Component {
       searchFieldInput: '',
       displayFilters: false, 
       location: '',
-      genre: '',
+      genre: ''
     };
 
     this.selectedState = this.selectedState.bind(this);
@@ -48,7 +48,7 @@ class Filters extends React.Component {
 
       if (this.state.location === '' && this.state.genre !== '') {
         arrayFilteredRestaurants = this.checkRestaurantGenre(
-          copyOfRestaurantData,
+          this.props.restaurantData,
           this.state.genre
         );
       }
@@ -160,10 +160,10 @@ class Filters extends React.Component {
       displayFilters: !this.state.displayFilters
     });
 
-    if (!displayFilters) {
+    if (!this.state.displayFilters) {
       this.setState({
         location: '',
-        genre: '',
+        genre: ''
       });
     }
   }
