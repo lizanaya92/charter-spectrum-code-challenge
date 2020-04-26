@@ -1,13 +1,14 @@
 import React from 'react';
 import RestaurantList from './RestaurantList.jsx';
 import Filters from './Filters.jsx';
+import SearchField from './SearchField.jsx'; 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       restaurants: [],
-      noRestaurantsFound: false,
+      noRestaurantsFound: false
     };
 
     this.diplayAllRestaurants = this.diplayAllRestaurants.bind(this);
@@ -38,7 +39,7 @@ class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          restaurants: data.results.sort(this.sortRestaurants),
+          restaurants: data.results.sort(this.sortRestaurants)
         });
       })
       .catch(error => {
@@ -50,13 +51,13 @@ class App extends React.Component {
 
   diplayFilteredRestaurants(data) {
     this.setState({
-      restaurants: data,
+      restaurants: data
     });
   }
 
   handleNoRestaurantsFound() {
     this.setState({
-      noRestaurantsFound: true,
+      noRestaurantsFound: true
     });
   }
 
@@ -65,6 +66,11 @@ class App extends React.Component {
       <div>
         <h1>FindEatz</h1>
         <Filters
+          restaurantData={this.state.restaurants}
+          diplayFilteredRestaurants={this.diplayFilteredRestaurants}
+          handleNoRestaurantsFound={this.handleNoRestaurantsFound}
+        />
+        <SearchField 
           restaurantData={this.state.restaurants}
           diplayFilteredRestaurants={this.diplayFilteredRestaurants}
           handleNoRestaurantsFound={this.handleNoRestaurantsFound}

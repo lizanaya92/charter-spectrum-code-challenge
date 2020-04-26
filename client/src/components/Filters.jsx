@@ -22,9 +22,9 @@ class Filters extends React.Component {
   onApplyFilters(event) {
     event.preventDefault();
 
-    let arrayFilteredByState;
-    let arrayFilteredByGenre;
-    let arrayFilteredRestaurants;
+    let arrayFilteredByState,
+      arrayFilteredByGenre,
+      arrayFilteredRestaurants;
     const copyOfRestaurantData = [...this.props.restaurantData];
 
     if (this.state.location !== '' && this.state.genre !== '') {
@@ -98,7 +98,6 @@ class Filters extends React.Component {
           restaurantData={this.props.restaurantData}
           selectedGenre={this.selectedGenre}
         />
-        {/* <AttireFilter /> */}
         <button onClick={this.onApplyFilters}>Apply Filters</button>
         <button onClick={this.clearFilters}>Clear Filters</button>
       </div>

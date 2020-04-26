@@ -5,7 +5,7 @@ class GenreFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      genre: '',
+      genre: ''
     };
     this.findAllGenres = this.findAllGenres.bind(this);
     this.onDropdownChange = this.onDropdownChange.bind(this);
@@ -23,6 +23,7 @@ class GenreFilter extends React.Component {
       }
     }
     genres.sort();
+    genres.unshift('Select Genre'); 
     return genres;
   }
 
@@ -31,7 +32,7 @@ class GenreFilter extends React.Component {
     console.log('here is the event', event.target.value);
     this.setState(
       {
-        genre: event.target.value,
+        genre: event.target.value
       },
       this.props.selectedGenre(event.target.value)
     );
