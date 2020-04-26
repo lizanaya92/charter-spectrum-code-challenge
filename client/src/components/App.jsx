@@ -72,7 +72,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>FindEatz</h1>
+        <div id="wrap-image">
+          <img src="homePagePicture.png" alt="people dinning" id="home-page-image"/>
+        </div>
+        <h1 className="header">FindEatz</h1>
         <Filters
           restaurantData={this.state.restaurants}
           diplayFilteredRestaurants={this.diplayFilteredRestaurants}

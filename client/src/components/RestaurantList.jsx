@@ -18,6 +18,7 @@ const RestaurantList = props => {
   const renderPageNumbers = pageNumbers.map(number => {
     return (
       <button
+        className="page-number-button"
         key={number}
         id={number}
         onClick={props.pageNumberClick}
@@ -41,7 +42,16 @@ const RestaurantList = props => {
 
   return (
     <div>
-      <ul>{RestaurantComponent}</ul>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Phone Number</th>
+          <th>Genre</th>
+        </tr>
+        {RestaurantComponent}
+      </table>
       <ul id="page-numbers">
         {renderPageNumbers}
       </ul>

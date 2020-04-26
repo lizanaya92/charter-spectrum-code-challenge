@@ -10,7 +10,7 @@ const StateFilter = props => {
 
   return (
     <div>
-      <label htmlFor="filterByState">State</label>
+      <label className="filter-button-label">State</label>
       <StateFilterOptions
         location={event.target.value}
         onDropdownChange={onDropdownChange}

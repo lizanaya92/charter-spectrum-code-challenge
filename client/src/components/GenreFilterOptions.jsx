@@ -26,6 +26,7 @@ const GenreFilterOptions = props => {
 
   return (
     <select
+      className="filter-drop-down-menu"
       name="dropDownOptions"
       value={props.genre}
       onChange={props.onDropdownChange}

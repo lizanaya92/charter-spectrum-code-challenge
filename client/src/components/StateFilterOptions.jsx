@@ -8,6 +8,7 @@ const StateFilterOptions = props => {
 
   return (
     <select
+      className="filter-drop-down-menu"
       name="dropDownOptions"
       value={props.location}
       onChange={props.onDropdownChange}

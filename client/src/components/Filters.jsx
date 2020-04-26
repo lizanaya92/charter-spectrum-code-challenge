@@ -173,9 +173,9 @@ class Filters extends React.Component {
     const displayFilters = this.state.displayFilters;
     let filterButton; 
     if (!displayFilters) {
-      filterButton = <button onClick={this.filterDisplayControl}>Show Filters</button>;
+      filterButton = <button className="filter-button" onClick={this.filterDisplayControl}>Filter by</button>;
     } else {
-      filterButton = <button onClick={this.filterDisplayControl}>Hide Filters</button>;
+      filterButton = <button className="filter-button" onClick={this.filterDisplayControl}>Close Filters</button>;
     }
 
     const searchField = <SearchField 
@@ -188,8 +188,7 @@ class Filters extends React.Component {
     if (!this.state.displayFilters) {
       return (
         <div>
-          {searchField}
-          {filterButton}
+          {searchField} {filterButton}
         </div>
       );
     } else {
@@ -201,8 +200,8 @@ class Filters extends React.Component {
             restaurantData={this.props.restaurantData}
             selectedGenre={this.selectedGenre}
           />
-          <button onClick={this.onApplyFilters}>Apply Filters</button>
-          <button onClick={this.clearFilters}>Clear Filters</button>
+          <button className="filter-buttons" onClick={this.onApplyFilters}>Apply Filters</button>
+          <button className="filter-buttons" onClick={this.clearFilters}>Clear Filters</button>
           {filterButton}
         </div>
       );

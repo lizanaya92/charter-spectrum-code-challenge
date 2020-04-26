@@ -12,7 +12,7 @@ const GenreFilter = props => {
 
   return (
     <div>
-      <label htmlFor="filterByGenre">Genre</label>
+      <label className="filter-button-label">Genre</label>
       <GenreFilterOptions
         genre={event.target.value}
         onDropdownChange={onDropdownChange}

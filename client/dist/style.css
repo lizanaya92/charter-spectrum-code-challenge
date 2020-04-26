@@ -1,0 +1,138 @@
+div {
+  display: block;
+  text-align: center;
+}
+
+#home-page-image {
+  width: 1300px;
+  height: 400px;
+}
+
+#wrap-image {
+  text-align: center;
+}
+
+.header {
+  font: 400 56px/64px Roboto, Arial, sans-serif;
+  text-align: center;
+}
+
+.search-form {
+  border-radius: 8px;
+  box-sizing: border-box;
+  position: relative;
+  text-align: center;
+}
+
+.search-form-input {
+  text-emphasis-color: black;
+  width: 400px;
+  flex: 100%;
+  font: 16px arial, sans-serif;
+  line-height: 34px;
+  height: 34px;
+}
+
+.search-button {
+  margin-bottom: 15px;
+  margin-top: 20px;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-button {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-buttons {
+  margin-right: 15px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-button-label {
+  margin-right: 10px;
+  font: 400 18px/40px Roboto, Arial, sans-serif;
+  text-align: center;
+  font-weight: 700;
+}
+
+#center {
+  text-align: center;
+}
+
+.filter-drop-down-menu {
+  cursor: pointer;
+  /* display: block; */
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 500;
+  color: #444;
+  width: 150px;
+  background-color: #fff;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.page-number-button {
+  margin-top: 25px;
+  margin-right: 10px;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 10px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+}

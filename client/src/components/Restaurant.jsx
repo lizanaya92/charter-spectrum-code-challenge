@@ -1,13 +1,13 @@
 import React from 'react';
 
 const Restaurant = props => (
-  <li>
-    {props.name}
-    {props.city}
-    {props.state}
-    {props.phoneNumber}
-    {props.genre}
-  </li>
+  <tr>
+    <td>{props.name}</td>
+    <td>{props.city}</td>
+    <td>{props.state}</td>
+    <td>{props.phoneNumber}</td>
+    <td>{props.genre}</td>
+  </tr>
 );
 
 export default Restaurant;
