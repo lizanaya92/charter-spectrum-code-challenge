@@ -43,14 +43,18 @@ const RestaurantList = props => {
   return (
     <div>
       <table>
-        <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Phone Number</th>
-          <th>Genre</th>
-        </tr>
-        {RestaurantComponent}
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Phone Number</th>
+            <th>Genre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {RestaurantComponent}
+        </tbody>
       </table>
       <ul id="page-numbers">
         {renderPageNumbers}

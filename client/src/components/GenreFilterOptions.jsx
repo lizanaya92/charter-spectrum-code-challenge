@@ -14,7 +14,7 @@ const GenreFilterOptions = props => {
       }
     }
     genres.sort();
-    genres.unshift('Select Genre'); 
+    genres.unshift('All'); 
     return genres;
   };
 
@@ -30,6 +30,7 @@ const GenreFilterOptions = props => {
       name="dropDownOptions"
       value={props.genre}
       onChange={props.onDropdownChange}
+      defaultValue="All"
     >
       {GenreOptions}
     </select>

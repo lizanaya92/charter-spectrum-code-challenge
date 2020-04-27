@@ -1,5 +1,5 @@
 const states = [
-  'Select Location',
+  'All',
   'AL',
   'AK',
   'AS',
