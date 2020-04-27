@@ -8,7 +8,7 @@ class Filters extends React.Component {
     super(props);
     this.state = {
       searchFieldInput: '',
-      displayFilters: false, 
+      displayFilters: false,
       location: '',
       genre: ''
     };
@@ -19,22 +19,23 @@ class Filters extends React.Component {
     this.selectedGenre = this.selectedGenre.bind(this);
     this.checkRestaurantGenre = this.checkRestaurantGenre.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
-    this.searchFieldInputUpdate = this.searchFieldInputUpdate.bind(this); 
-    this.filterByInput = this.filterByInput.bind(this); 
-    this.filterDisplayControl = this.filterDisplayControl.bind(this); 
+    this.searchFieldInputUpdate = this.searchFieldInputUpdate.bind(this);
+    this.filterByInput = this.filterByInput.bind(this);
+    this.filterDisplayControl = this.filterDisplayControl.bind(this);
   }
 
   onApplyFilters(event) {
     event.preventDefault();
 
-    let arrayFilteredByState,
-      arrayFilteredByGenre,
-      arrayFilteredRestaurants;
+    let arrayFilteredByState;
+    let arrayFilteredByGenre;
+    let arrayFilteredRestaurants;
 
     if (this.state.searchFieldInput !== '') {
-      arrayFilteredRestaurants = this.ifSearchFieldPresent(this.state.searchFieldInput);
+      arrayFilteredRestaurants = this.ifSearchFieldPresent(
+        this.state.searchFieldInput
+      );
     } else {
-
       if (this.state.location !== '' && this.state.genre !== '') {
         arrayFilteredByState = this.filterDataByState(this.state.location);
         arrayFilteredByGenre = this.checkRestaurantGenre(
@@ -66,34 +67,35 @@ class Filters extends React.Component {
   }
 
   filterByInput(input, array) {
-    let resultsArray = []; 
-    let trimInput = input.trim(); 
-    let searchInput = trimInput.toUpperCase();
-
+    const resultsArray = [];
+    const trimInput = input.trim();
+    const searchInput = trimInput.toUpperCase();
 
     for (let i = 0; i < array.length; i++) {
-      let restaurantName = array[i].name.toUpperCase(); 
-      let restaurantCity = array[i].city.toUpperCase(); 
-      let restaurantGenre = array[i].genre.toUpperCase(); 
+      const restaurantName = array[i].name.toUpperCase();
+      const restaurantCity = array[i].city.toUpperCase();
+      const restaurantGenre = array[i].genre.toUpperCase();
 
-      if (restaurantName.includes(searchInput) || restaurantCity.includes(searchInput) || restaurantGenre.includes(searchInput)) {
+      if (
+        restaurantName.includes(searchInput) ||
+        restaurantCity.includes(searchInput) ||
+        restaurantGenre.includes(searchInput)
+      ) {
         resultsArray.push(array[i]);
       }
     }
 
-    return resultsArray; 
+    return resultsArray;
   }
 
   ifSearchFieldPresent(input) {
-
-
     if (this.state.location !== '' && this.state.genre !== '') {
-      let arrayFilteredByState = this.filterDataByState(this.state.location);
-      let arrayFilteredByGenre = this.checkRestaurantGenre(
+      const arrayFilteredByState = this.filterDataByState(this.state.location);
+      const arrayFilteredByGenre = this.checkRestaurantGenre(
         arrayFilteredByState,
         this.state.genre
       );
-      let arrayFilteredRestaurantsByGenreAndState = arrayFilteredByState.concat(
+      const arrayFilteredRestaurantsByGenreAndState = arrayFilteredByState.concat(
         arrayFilteredByGenre
       );
 
@@ -101,12 +103,12 @@ class Filters extends React.Component {
     }
 
     if (this.state.location !== '' && this.state.genre === '') {
-      let arrayFilteredByState = this.filterDataByState(this.state.location);
+      const arrayFilteredByState = this.filterDataByState(this.state.location);
       return this.filterByInput(input, arrayFilteredByState);
     }
 
     if (this.state.location === '' && this.state.genre !== '') {
-      let arrayFilteredRestaurantsByGenre = this.checkRestaurantGenre(
+      const arrayFilteredRestaurantsByGenre = this.checkRestaurantGenre(
         this.props.restaurantData,
         this.state.genre
       );
@@ -126,7 +128,7 @@ class Filters extends React.Component {
     return restaurantIncludesGenre;
   }
 
-  searchFieldInputUpdate (input) {
+  searchFieldInputUpdate(input) {
     this.setState({
       searchFieldInput: input
     });
@@ -139,13 +141,13 @@ class Filters extends React.Component {
 
   selectedState(selectedLocation) {
     this.setState({
-      location: selectedLocation,
+      location: selectedLocation
     });
   }
 
   selectedGenre(selectedGenre) {
     this.setState({
-      genre: selectedGenre,
+      genre: selectedGenre
     });
   }
 
@@ -169,21 +171,30 @@ class Filters extends React.Component {
   }
 
   render() {
-
-    const displayFilters = this.state.displayFilters;
-    let filterButton; 
+    const { displayFilters } = this.state;
+    let filterButton;
     if (!displayFilters) {
-      filterButton = <button className="filter-button" onClick={this.filterDisplayControl}>Filter by</button>;
+      filterButton = (
+        <button className="filter-button" onClick={this.filterDisplayControl}>
+          Filter by
+        </button>
+      );
     } else {
-      filterButton = <button className="filter-button" onClick={this.filterDisplayControl}>Close Filters</button>;
+      filterButton = (
+        <button className="filter-button" onClick={this.filterDisplayControl}>
+          Close Filters
+        </button>
+      );
     }
 
-    const searchField = <SearchField 
-      restaurantData={this.props.restaurantData}
-      diplayFilteredRestaurants={this.props.diplayFilteredRestaurants}
-      handleNoRestaurantsFound={this.props.handleNoRestaurantsFound}
-      searchFieldInputUpdate={this.searchFieldInputUpdate}
-    />;
+    const searchField = (
+      <SearchField
+        restaurantData={this.props.restaurantData}
+        diplayFilteredRestaurants={this.props.diplayFilteredRestaurants}
+        handleNoRestaurantsFound={this.props.handleNoRestaurantsFound}
+        searchFieldInputUpdate={this.searchFieldInputUpdate}
+      />
+    );
 
     if (!this.state.displayFilters) {
       return (
@@ -191,21 +202,24 @@ class Filters extends React.Component {
           {searchField} {filterButton}
         </div>
       );
-    } else {
-      return (
-        <div>
-          {searchField}
-          <StateFilter selectedState={this.selectedState} />
-          <GenreFilter
-            restaurantData={this.props.restaurantData}
-            selectedGenre={this.selectedGenre}
-          />
-          <button className="filter-buttons" onClick={this.onApplyFilters}>Apply Filters</button>
-          <button className="filter-buttons" onClick={this.clearFilters}>Clear Filters</button>
-          {filterButton}
-        </div>
-      );
     }
+    return (
+      <div>
+        {searchField}
+        <StateFilter selectedState={this.selectedState} />
+        <GenreFilter
+          restaurantData={this.props.restaurantData}
+          selectedGenre={this.selectedGenre}
+        />
+        <button className="filter-buttons" onClick={this.onApplyFilters}>
+          Apply Filters
+        </button>
+        <button className="filter-buttons" onClick={this.clearFilters}>
+          Clear Filters
+        </button>
+        {filterButton}
+      </div>
+    );
   }
 }
 

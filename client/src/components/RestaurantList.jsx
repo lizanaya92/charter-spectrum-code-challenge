@@ -7,27 +7,32 @@ const RestaurantList = props => {
   }
 
   const indexOfLastRestaurant = props.currentPage * props.restaurantsPerPage;
-  const indexOfFirstRestaurant = indexOfLastRestaurant - props.restaurantsPerPage;
-  const currentRestaurantsOnDisplay = props.restaurants.slice(indexOfFirstRestaurant, indexOfLastRestaurant); 
+  const indexOfFirstRestaurant =
+    indexOfLastRestaurant - props.restaurantsPerPage;
+  const currentRestaurantsOnDisplay = props.restaurants.slice(
+    indexOfFirstRestaurant,
+    indexOfLastRestaurant
+  );
 
-  const pageNumbers = []; 
-  for (let i = 1; i <= Math.ceil(props.restaurants.length / props.restaurantsPerPage); i++) {
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i <= Math.ceil(props.restaurants.length / props.restaurantsPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
-  const renderPageNumbers = pageNumbers.map(number => {
-    return (
-      <button
-        className="page-number-button"
-        key={number}
-        id={number}
-        onClick={props.pageNumberClick}
-      >
-        {number}
-      </button>
-    );
-  });
-
+  const renderPageNumbers = pageNumbers.map(number => (
+    <button
+      className="page-number-button"
+      key={number}
+      id={number}
+      onClick={props.pageNumberClick}
+    >
+      {number}
+    </button>
+  ));
 
   const RestaurantComponent = currentRestaurantsOnDisplay.map(restaurant => (
     <Restaurant
@@ -52,13 +57,9 @@ const RestaurantList = props => {
             <th>Genre</th>
           </tr>
         </thead>
-        <tbody>
-          {RestaurantComponent}
-        </tbody>
+        <tbody>{RestaurantComponent}</tbody>
       </table>
-      <ul id="page-numbers">
-        {renderPageNumbers}
-      </ul>
+      <ul id="page-numbers">{renderPageNumbers}</ul>
     </div>
   );
 };

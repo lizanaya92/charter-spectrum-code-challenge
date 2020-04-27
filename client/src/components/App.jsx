@@ -1,14 +1,14 @@
 import React from 'react';
 import RestaurantList from './RestaurantList.jsx';
-import Filters from './Filters.jsx'; 
+import Filters from './Filters.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       restaurants: [],
-      noRestaurantsFound: false, 
-      currentPage: 1, 
+      noRestaurantsFound: false,
+      currentPage: 1,
       restaurantsPerPage: 10
     };
 
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.sortRestaurants = this.sortRestaurants.bind(this);
     this.diplayFilteredRestaurants = this.diplayFilteredRestaurants.bind(this);
     this.handleNoRestaurantsFound = this.handleNoRestaurantsFound.bind(this);
-    this.pageNumberClick = this.pageNumberClick.bind(this); 
+    this.pageNumberClick = this.pageNumberClick.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +63,7 @@ class App extends React.Component {
     });
   }
 
-  pageNumberClick (event) {
+  pageNumberClick(event) {
     this.setState({
       currentPage: Number(event.target.id)
     });
@@ -73,7 +73,11 @@ class App extends React.Component {
     return (
       <div>
         <div id="wrap-image">
-          <img src="homePagePicture.png" alt="people dinning" id="home-page-image"/>
+          <img
+            src="homePagePicture.png"
+            alt="people dinning"
+            id="home-page-image"
+          />
         </div>
         <h1 className="header">FindEatz</h1>
         <Filters
@@ -83,8 +87,8 @@ class App extends React.Component {
         />
         <RestaurantList
           restaurants={this.state.restaurants}
-          currentPage = {this.state.currentPage}
-          restaurantsPerPage = {this.state.restaurantsPerPage}
+          currentPage={this.state.currentPage}
+          restaurantsPerPage={this.state.restaurantsPerPage}
           noRestaurantsFound={this.state.noRestaurantsFound}
           pageNumberClick={this.pageNumberClick}
         />

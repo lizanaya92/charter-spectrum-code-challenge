@@ -2,13 +2,10 @@ import React from 'react';
 import GenreFilterOptions from './GenreFilterOptions.jsx';
 
 const GenreFilter = props => {
-  
-
   const onDropdownChange = event => {
-    
     event.preventDefault();
     props.selectedGenre(event.target.value);
-  }; 
+  };
 
   return (
     <div>
@@ -20,7 +17,6 @@ const GenreFilter = props => {
       />
     </div>
   );
-
 };
 
 export default GenreFilter;

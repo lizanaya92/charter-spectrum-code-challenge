@@ -1,7 +1,6 @@
 import React from 'react';
 
 const GenreFilterOptions = props => {
-  
   const findAllGenres = array => {
     const genres = [];
     for (let i = 0; i < array.length; i++) {
@@ -14,7 +13,7 @@ const GenreFilterOptions = props => {
       }
     }
     genres.sort();
-    genres.unshift('All'); 
+    genres.unshift('All');
     return genres;
   };
 
