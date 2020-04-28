@@ -1,19 +1,29 @@
-require('dotenv').config();
+const socket = require('socket.io');
 const express = require('express');
+const cors = require('cors');
 const fetch = require('node-fetch');
 
 const app = express();
-const PORT = 3000;
+
+const PORT = process.env.PORT || 3000;
+
+const server = app.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`);
+});
+
+const io = require('socket.io')(server);
 
 app.use(express.json());
 app.use(express.static(`${__dirname}/../client/dist`));
 
-app.get('/api/restaurants', (req, res) => {
+io.sockets.on('connection', socket);
+
+app.get('/api/restaurants', cors(), (req, res) => {
   const apiURL = 'https://code-challenge.spectrumtoolbox.com/api/restaurants';
 
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: process.env.VALUE,
+    Authorization: `Api-Key ${process.env.VALUE}`,
   };
 
   fetch(apiURL, { method: 'GET', headers })
@@ -24,8 +34,4 @@ app.get('/api/restaurants', (req, res) => {
     .catch(error => {
       res.status(400).send(error);
     });
-});
-
-app.listen(PORT, () => {
-  console.log('Listening from port:', PORT);
 });
