@@ -1,22 +1,37 @@
 import React from 'react';
-import GenreFilterOptions from './GenreFilterOptions.jsx';
 
-const GenreFilter = props => {
-  const onDropdownChange = event => {
-    event.preventDefault();
-    props.selectedGenre(event.target.value);
+const GenreFilterOptions = props => {
+  const findAllGenres = array => {
+    const genres = [];
+    for (let i = 0; i < array.length; i++) {
+      const genreString = array[i].genre;
+      const genreArray = genreString.split(',');
+      for (let j = 0; j < genreArray.length; j++) {
+        if (genres.indexOf(genreArray[j]) === -1) {
+          genres.push(genreArray[j]);
+        }
+      }
+    }
+    genres.sort();
+    genres.unshift('All');
+    return genres;
   };
 
+  const allGenres = findAllGenres(props.restaurantData);
+
+  const GenreOptions = allGenres.map(genre => (
+    <option value={genre}>{genre}</option>
+  ));
+
   return (
-    <div>
-      <label className="filter-button-label">Genre</label>
-      <GenreFilterOptions
-        genre={event.target.value}
-        onDropdownChange={onDropdownChange}
-        restaurantData={props.restaurantData}
-      />
-    </div>
+    <select
+      className="filter-drop-down-menu"
+      name="dropDownOptions"
+      onChange={props.onDropdownChange}
+    >
+      {GenreOptions}
+    </select>
   );
 };
 
-export default GenreFilter;
+export default GenreFilterOption;
