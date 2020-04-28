@@ -9,7 +9,7 @@ class App extends React.Component {
       restaurants: [],
       noRestaurantsFound: false,
       currentPage: 1,
-      restaurantsPerPage: 10
+      restaurantsPerPage: 10,
     };
 
     this.diplayAllRestaurants = this.diplayAllRestaurants.bind(this);
@@ -37,11 +37,11 @@ class App extends React.Component {
   }
 
   diplayAllRestaurants() {
-    fetch('http://localhost:3000/api/restaurants')
+    fetch('https://findeatz.herokuapp.com/api/restaurants')
       .then(res => res.json())
       .then(data => {
         this.setState({
-          restaurants: data.results.sort(this.sortRestaurants)
+          restaurants: data.results.sort(this.sortRestaurants),
         });
       })
       .catch(error => {
@@ -53,19 +53,19 @@ class App extends React.Component {
 
   diplayFilteredRestaurants(data) {
     this.setState({
-      restaurants: data
+      restaurants: data,
     });
   }
 
   handleNoRestaurantsFound() {
     this.setState({
-      noRestaurantsFound: true
+      noRestaurantsFound: true,
     });
   }
 
   pageNumberClick(event) {
     this.setState({
-      currentPage: Number(event.target.id)
+      currentPage: Number(event.target.id),
     });
   }
 
