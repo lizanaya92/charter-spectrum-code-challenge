@@ -4,13 +4,19 @@ Feeling hungry? FindEatz not only gives you the ability to search for restaurant
 
 <img width="1265" alt="homePagePicture" src="https://user-images.githubusercontent.com/54192368/80323502-f6bd8780-87e8-11ea-8419-c37a88a97eef.png">
 
-## Getting Started
+# Viewing Deployed Code
+
+Visit https://findeatz.herokuapp.com/
+
+## Getting Started For Development
 
 Run the following commands on the terminal to get the application running.
 
 **npm install** - to install the dependencies
-**npm start** - to start sever
+**npm run start-dev** - to start sever
 **npm run react-dev** - to bundle modules running webpack
+
+Please note that you will need an _Authorization_ token to fetch restaurant data from the API endpoint.
 
 Visit http://localhost:3000/ to view applicaiton.
 
@@ -38,4 +44,4 @@ Enjoy the website and your delicious meal! :yum:
 
 - Home Page Picture:
 
-- Johnson, Nathanael. “People Cheering with Drinks. Food Table Is Displayed.” Grist, 14 Mar. 2016, https://*grist.org/food/modern-food-is-a-triumph-modern-food-is-a-disaster/.
+Johnson, Nathanael. “People Cheering with Drinks. Food Table Is Displayed.” Grist, 14 Mar. 2016, https://*grist.org/food/modern-food-is-a-triumph-modern-food-is-a-disaster/.
